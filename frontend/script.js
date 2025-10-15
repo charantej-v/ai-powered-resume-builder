@@ -116,7 +116,7 @@ if (window.location.pathname.includes('build.html')) {
         generateSummaryBtn.textContent = 'Generating...';
         
         try {
-            const response = await fetch('http://localhost:3000/generate-content', {
+            const response = await fetch('https://ai-powered-resume-builder-1-27ju.onrender.com/generate-content', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -148,7 +148,7 @@ if (window.location.pathname.includes('build.html')) {
         generateSkillsBtn.textContent = 'Generating...';
         
         try {
-            const response = await fetch('http://localhost:3000/generate-content', {
+            const response = await fetch('https://ai-powered-resume-builder-1-27ju.onrender.com/generate-content', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -186,7 +186,7 @@ if (window.location.pathname.includes('build.html')) {
             e.target.textContent = 'Generating...';
             
             try {
-                const response = await fetch('http://localhost:3000/generate-content', {
+                const response = await fetch('https://ai-powered-resume-builder-1-27ju.onrender.com/generate-content', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -224,7 +224,7 @@ if (window.location.pathname.includes('build.html')) {
             e.target.textContent = 'Generating...';
             
             try {
-                const response = await fetch('http://localhost:3000/generate-content', {
+                const response = await fetch('https://ai-powered-resume-builder-1-27ju.onrender.com/generate-content', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
