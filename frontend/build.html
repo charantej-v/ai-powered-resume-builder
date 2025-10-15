@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Resume with AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="theme-toggle">
+        <label class="switch">
+            <span class="theme-icon sun">☀️</span>
+            <input type="checkbox" id="themeToggle">
+            <span class="slider"></span>
+            <span class="theme-icon moon">🌙</span>
+        </label>
+    </div>
+
+    <div class="container build-container">
+        <div class="header">
+            <button class="back-btn" onclick="window.location.href='index.html'">← Back</button>
+            <h1>Build Resume with AI</h1>
+        </div>
+
+        <div class="resume-options">
+            <button class="option-btn active" id="newResumeBtn">Generate New Resume</button>
+            <button class="option-btn" id="editResumeBtn">Edit Existing Resume</button>
+        </div>
+
+        <!-- Generate New Resume Section -->
+        <div class="input-section" id="newResumeSection">
+            <div class="form-group">
+                <label>Company Name (Optional)</label>
+                <input type="text" id="companyName" placeholder="Enter company name (optional)">
+            </div>
+            <div class="form-group">
+                <label>Job Description (Optional)</label>
+                <textarea id="jobDescription" rows="4" placeholder="Paste job description here (optional)..."></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Experience Level</label>
+                    <select id="experienceLevel">
+                        <option value="fresher">Fresher</option>
+                        <option value="experienced">Experienced</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Resume Style</label>
+                    <select id="resumeStyle">
+                        <option value="formal">Formal</option>
+                        <option value="casual">Casual</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Existing Resume Section -->
+        <div class="input-section" id="editResumeSection" style="display: none;">
+            <div class="form-group">
+                <label>Upload Resume (PDF or DOCX)</label>
+                <input type="file" id="resumeFile" accept=".pdf,.docx" placeholder="Upload your resume">
+                <div id="fileInfo" style="margin-top: 10px; color: #666;"></div>
+            </div>
+            <button class="primary-btn" id="loadResumeBtn">Load Resume for Editing</button>
+        </div>
+
+        <!-- Split Layout: Modules Left, Live Preview Right -->
+        <div class="resume-builder-split" id="resumeBuilderSplit" style="display: none;">
+            <!-- Left Side: Modules -->
+            <div class="resume-modules">
+                <div class="editor-actions">
+                    <button class="action-btn" id="downloadPdfBtn">Download PDF</button>
+                    <button class="action-btn" id="downloadTxtBtn">Download TXT</button>
+                </div>
+
+                <div class="section-card">
+                    <h2>Personal Information</h2>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="fullName" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="phone" placeholder="+1 234 567 8900">
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" id="location" placeholder="City, Country">
+                    </div>
+                    <div class="form-group">
+                        <label>LinkedIn (Optional)</label>
+                        <input type="text" id="linkedin" placeholder="linkedin.com/in/johndoe (optional)">
+                    </div>
+                    <div class="form-group">
+                        <label>GitHub (Optional)</label>
+                        <input type="text" id="github" placeholder="github.com/johndoe (optional)">
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>Professional Summary</h2>
+                    <button class="ai-btn" id="generateSummaryBtn">✨ Generate with AI</button>
+                    <div class="form-group">
+                        <textarea id="professionalSummary" rows="4" placeholder="AI will generate your professional summary..."></textarea>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>Experience (Optional)</h2>
+                    <div id="experienceContainer">
+                        <div class="experience-item">
+                            <div class="form-group">
+                                <label>Job Title</label>
+                                <input type="text" class="expTitle" placeholder="Software Engineer">
+                            </div>
+                            <div class="form-group">
+                                <label>Company</label>
+                                <input type="text" class="expCompany" placeholder="Tech Corp">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input type="text" class="expStart" placeholder="Jan 2022">
+                                </div>
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    <input type="text" class="expEnd" placeholder="Present">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="expDesc" rows="3" placeholder="Describe your role..."></textarea>
+                                <button class="ai-btn-small ai-exp-btn">✨ Enhance with AI</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="add-btn" id="addExperienceBtn">+ Add Experience</button>
+                </div>
+
+                <div class="section-card">
+                    <h2>Education</h2>
+                    <div id="educationContainer">
+                        <div class="education-item">
+                            <div class="form-group">
+                                <label>Degree</label>
+                                <input type="text" class="eduDegree" placeholder="Bachelor of Science in Computer Science">
+                            </div>
+                            <div class="form-group">
+                                <label>Institution</label>
+                                <input type="text" class="eduInstitution" placeholder="University Name">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Year</label>
+                                    <input type="text" class="eduYear" placeholder="2018 - 2022">
+                                </div>
+                                <div class="form-group">
+                                    <label>GPA (Optional)</label>
+                                    <input type="text" class="eduGpa" placeholder="3.8/4.0">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="add-btn" id="addEducationBtn">+ Add Education</button>
+                </div>
+
+                <div class="section-card">
+                    <h2>Skills</h2>
+                    <button class="ai-btn" id="generateSkillsBtn">✨ Format Skills with AI</button>
+                    <div class="form-group">
+                        <textarea id="skills" rows="3" placeholder="Enter skills separated by commas..."></textarea>
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <h2>Projects</h2>
+                    <div id="projectsContainer">
+                        <div class="project-item">
+                            <div class="form-group">
+                                <label>Project Name</label>
+                                <input type="text" class="projName" placeholder="E-commerce Website">
+                            </div>
+                            <div class="form-group">
+                                <label>Technologies</label>
+                                <input type="text" class="projTech" placeholder="React, Node.js, MongoDB">
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="projDesc" rows="2" placeholder="Describe your project..."></textarea>
+                                <button class="ai-btn-small ai-proj-btn">✨ Generate the description with AI</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="add-btn" id="addProjectBtn">+ Add Project</button>
+                </div>
+
+                <div class="section-card">
+                    <h2>Certifications (Optional)</h2>
+                    <div id="certificationsContainer">
+                        <div class="certification-item">
+                            <div class="form-group">
+                                <label>Certification Name</label>
+                                <input type="text" class="certName" placeholder="AWS Certified Solutions Architect">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Issuing Organization</label>
+                                    <input type="text" class="certOrg" placeholder="Amazon Web Services">
+                                </div>
+                                <div class="form-group">
+                                    <label>Year</label>
+                                    <input type="text" class="certYear" placeholder="2023">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="add-btn" id="addCertificationBtn">+ Add Certification</button>
+                </div>
+
+                <div class="section-card">
+                    <h2>Achievements (Optional)</h2>
+                    <div id="achievementsContainer">
+                        <div class="achievement-item">
+                            <div class="form-group">
+                                <label>Achievement Title</label>
+                                <input type="text" class="achTitle" placeholder="Won First Prize in Hackathon">
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="achDesc" rows="2" placeholder="Describe your achievement..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="add-btn" id="addAchievementBtn">+ Add Achievement</button>
+                </div>
+
+                <div class="generate-section">
+                    <button class="primary-btn" id="generateResumeBtn">Generate Resume</button>
+                </div>
+            </div>
+
+            <!-- Right Side: Live Preview -->
+            <div class="resume-live-preview">
+                <div class="preview-header">
+                    <h3>Live Preview</h3>
+                </div>
+                <div id="livePreviewContent" class="preview-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
